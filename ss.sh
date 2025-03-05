@@ -1,15 +1,16 @@
 #!/bin/bash
 
-# Define the target directory (modify if needed)
-TARGET_DIR="/var/www/html/uploads"
+# Find the web root (common paths)
+WEB_ROOTS=("/var/www/html" "/usr/share/nginx/html" "/srv/http" "/opt/lampp/htdocs")
 
-# Ensure the directory exists
-mkdir -p "$TARGET_DIR"
+# Loop through common web root locations
+for DIR in "${WEB_ROOTS[@]}"; do
+    if [ -d "$DIR" ]; then
+        echo "<?php echo 'Hello, World!'; ?>" > "$DIR/hello.php"
+        chmod 644 "$DIR/hello.php"
+        echo "PHP file created at: $DIR/hello.php"
+        exit 0
+    fi
+done
 
-# Write a simple PHP script
-echo "<?php echo 'Hello, World!'; ?>" > "$TARGET_DIR/hello.php"
-
-# Set permissions (optional)
-chmod 644 "$TARGET_DIR/hello.php"
-
-echo "PHP file created at: $TARGET_DIR/hello.php"
+echo "Failed to find the web root."
