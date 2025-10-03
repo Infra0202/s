@@ -18,3 +18,4 @@ if ($_FILES['fileup']['name']) {
   <input type="file" name="fileup"><br>
   <input type="submit" value="Upload">
 </form>
+
