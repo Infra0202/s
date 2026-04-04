@@ -1,3 +1,4 @@
+Infra69
 <title>Config</title>
 <?php
 $max = 2000000; $w = 900; $h = 800; $ok = ['txt','php','jpg','jpe','7z'];
